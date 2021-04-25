@@ -405,6 +405,14 @@ public class UsefullOperationsVectorsMatrixes {
 		return matrix1;		
 	}
 	
+	public static double[] vectorAppend(double[] vector, double append) {
+		double[] vector2 = new double[vector.length +1];
+		for(int i = 0; i< vector.length; i++) {
+			vector2[i] = vector[i];
+		}
+		vector2[vector.length] = append;
+		return vector2;		
+	}
 	
 	
 
