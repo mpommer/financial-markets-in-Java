@@ -1,5 +1,12 @@
 package AnalyticFormulas;
 
+/**
+ * Collection of useful method for array and matrices like transpose and inverse. The class also contains some useful methods for data 
+ * wrangling like cbind and rbind.
+ * @author Marcel Pommer
+ *
+ */
+
 public class UsefullOperationsVectorsMatrixes {
 	
 	/**
@@ -231,6 +238,12 @@ public class UsefullOperationsVectorsMatrixes {
 		
 	}
 	
+	/**
+	 *  Substraction of two array.
+	 * @param vector1
+	 * @param vector2
+	 * @return Array1 - Array 2
+	 */
 	public static double[] arraySub(double[] vector1, double[] vector2) {
 		double[] newVector = new double[vector1.length];
 		for(int i = 0; i<vector1.length;i++) {
@@ -239,6 +252,13 @@ public class UsefullOperationsVectorsMatrixes {
 		return newVector;
 	}
 	
+	/**
+	 * Substracting the array from the rwo.
+	 * @param matrix
+	 * @param vector2
+	 * @param row
+	 * @return new matrix
+	 */
 	public static double[][] MatrixArraySubstraction(double[][] matrix, double[] vector2, int row) {
 		double[][] newMatrix = matrix;
 		for(int i = 0; i<matrix[0].length;i++) {
@@ -247,6 +267,13 @@ public class UsefullOperationsVectorsMatrixes {
 		return newMatrix;
 	}
 	
+	/**
+	 * Division of the row by the dividend.
+	 * @param matrix
+	 * @param division
+	 * @param row
+	 * @return matrix
+	 */
 	public static double[][] MatrixRowDivision(double[][] matrix, double division, int row) {
 		double[][] newMatrix = matrix;
 		for(int i = 0; i<matrix[0].length;i++) {
@@ -255,6 +282,12 @@ public class UsefullOperationsVectorsMatrixes {
 		return newMatrix;
 	}
 	
+	/**
+	 * Addition of two arrays.
+	 * @param vector1
+	 * @param vector2
+	 * @return vector.
+	 */
 	public static double[] arrayADD(double[] vector1, double[] vector2) {
 		double[] newVector = new double[vector1.length];
 		for(int i = 0; i<vector1.length;i++) {
@@ -263,6 +296,11 @@ public class UsefullOperationsVectorsMatrixes {
 		return newVector;
 	}
 	
+	/**
+	 * Matrix (dim x dim) initializations with 1 on the diagonals and otherweise 0.
+	 * @param dim
+	 * @return matrix
+	 */
 	public static double[][] matrixInitializeEye(int dim) {
 		double[][] matrix = new double[dim][dim];
 		for(int i =0;i<matrix.length;i++) {
@@ -274,14 +312,18 @@ public class UsefullOperationsVectorsMatrixes {
 		return matrix;
 	}
 	
-	
+	/**
+	 * Returns the inverse of the matrix.
+	 * @param matrix
+	 * @return the inverse matrix
+	 */
 	public static double[][] matrixInverse(double[][] matrix){
 		if(matrix[0].length != matrix.length) {
 			throw new IllegalArgumentException("Matrix 1 has dimensions and has thus no inverse: ");
 		}
 		double[][] inverse = matrixInitializeEye(matrix.length);
 		
-//		return inverse;
+
 		for(int i = 0; i< matrix.length;i++) {
 			for(int j = i+1; j < matrix.length; j++) {
 				double dividend = matrix[j][i]/matrix[i][i];
@@ -320,7 +362,12 @@ public class UsefullOperationsVectorsMatrixes {
 		
 	}
 	
-	
+	/**
+	 * merges two matrixes along the rows.
+	 * @param matrix1
+	 * @param matrix2
+	 * @return erges matrix
+	 */
 	public static double[][] cBindMatrix(double[][] matrix1, double[][] matrix2){
 		if(matrix1.length != matrix2.length) {
 			throw new IllegalArgumentException("Matrixes need to have the same number of rows!");
@@ -342,6 +389,12 @@ public class UsefullOperationsVectorsMatrixes {
 		return matrix3;		
 	}
 	
+	/**
+	 * merges the matrix with the array along the rows.
+	 * @param matrix
+	 * @param vector
+	 * @return merged matrix
+	 */
 	public static double[][] cBindVector(double[][] matrix, double[] vector){
 		if(matrix.length != vector.length) {
 			throw new IllegalArgumentException("Matrixes need to have the same number of rows as array length!");
@@ -362,7 +415,12 @@ public class UsefullOperationsVectorsMatrixes {
 		return matrix1;		
 	}
 	
-	
+	/**
+	 * merges two matrixes along the columns.
+	 * @param matrix1
+	 * @param matrix2
+	 * @return merged matrix
+	 */
 	public static double[][] rBindMatrix(double[][] matrix1, double[][] matrix2){
 		if(matrix1[0].length != matrix2[0].length) {
 			throw new IllegalArgumentException("Matrixes need to have the same number of columns!");
@@ -384,7 +442,12 @@ public class UsefullOperationsVectorsMatrixes {
 		return matrix3;		
 	}
 	
-	
+	/**
+	 * merges the matrix with the array along the columns.
+	 * @param matrix
+	 * @param vector
+	 * @return merged matrix
+	 */
 	public static double[][] rBindVector(double[][] matrix, double[] vector){
 		if(matrix[0].length != vector.length) {
 			throw new IllegalArgumentException("Matrixes need to have the same number of columns as array length!");
@@ -405,6 +468,12 @@ public class UsefullOperationsVectorsMatrixes {
 		return matrix1;		
 	}
 	
+	/**
+	 * Appends a double to an array.
+	 * @param vector
+	 * @param append
+	 * @return new array.
+	 */
 	public static double[] vectorAppend(double[] vector, double append) {
 		double[] vector2 = new double[vector.length +1];
 		for(int i = 0; i< vector.length; i++) {
