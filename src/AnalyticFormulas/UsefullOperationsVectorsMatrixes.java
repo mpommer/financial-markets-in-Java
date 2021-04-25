@@ -231,6 +231,181 @@ public class UsefullOperationsVectorsMatrixes {
 		
 	}
 	
+	public static double[] arraySub(double[] vector1, double[] vector2) {
+		double[] newVector = new double[vector1.length];
+		for(int i = 0; i<vector1.length;i++) {
+			newVector[i] = vector1[i] - vector2[i];
+		}
+		return newVector;
+	}
+	
+	public static double[][] MatrixArraySubstraction(double[][] matrix, double[] vector2, int row) {
+		double[][] newMatrix = matrix;
+		for(int i = 0; i<matrix[0].length;i++) {
+			newMatrix[row][i] = newMatrix[row][i] - vector2[i];
+		}
+		return newMatrix;
+	}
+	
+	public static double[][] MatrixRowDivision(double[][] matrix, double division, int row) {
+		double[][] newMatrix = matrix;
+		for(int i = 0; i<matrix[0].length;i++) {
+			newMatrix[row][i] = newMatrix[row][i] / division;
+		}
+		return newMatrix;
+	}
+	
+	public static double[] arrayADD(double[] vector1, double[] vector2) {
+		double[] newVector = new double[vector1.length];
+		for(int i = 0; i<vector1.length;i++) {
+			newVector[i] = vector1[i] + vector2[i];
+		}
+		return newVector;
+	}
+	
+	public static double[][] matrixInitializeEye(int dim) {
+		double[][] matrix = new double[dim][dim];
+		for(int i =0;i<matrix.length;i++) {
+			for(int j= 0;j<matrix.length;j++) {
+				matrix[i][j] = i==j ? 1:0;
+			}
+		}
+		
+		return matrix;
+	}
+	
+	
+	public static double[][] matrixInverse(double[][] matrix){
+		if(matrix[0].length != matrix.length) {
+			throw new IllegalArgumentException("Matrix 1 has dimensions and has thus no inverse: ");
+		}
+		double[][] inverse = matrixInitializeEye(matrix.length);
+		
+//		return inverse;
+		for(int i = 0; i< matrix.length;i++) {
+			for(int j = i+1; j < matrix.length; j++) {
+				double dividend = matrix[j][i]/matrix[i][i];
+				double[] subArrayM1 = new double[matrix.length];
+				double[] subArrayIN = new double[matrix.length];
+				for(int m= 0; m<matrix.length;m++) {
+					subArrayM1[m] = matrix[i][m] * dividend;
+					subArrayIN[m] = inverse[i][m] * dividend;
+					}
+				matrix = MatrixArraySubstraction(matrix, subArrayM1, j);
+				inverse = MatrixArraySubstraction(inverse, subArrayIN, j);				
+			}
+		}
+		
+		for(int i = 0; i<matrix.length; i++) {
+			double dividend = matrix[i][i];
+			matrix = MatrixRowDivision(matrix, dividend, i);
+			inverse = MatrixRowDivision(inverse, dividend, i);
+		}
+		
+		
+		for(int i = matrix.length-1; i>0 ;i--) {
+			for(int j = i-1; j >= 0; j--) {
+				double dividend = matrix[j][i]/matrix[i][i];
+				double[] subArrayM1 = new double[matrix.length];
+				double[] subArrayIN = new double[matrix.length];
+				for(int m= 0; m<matrix.length;m++) {
+					subArrayM1[m] = matrix[i][m] * dividend;
+					subArrayIN[m] = inverse[i][m] * dividend;
+					}
+				matrix = MatrixArraySubstraction(matrix, subArrayM1, j);
+				inverse = MatrixArraySubstraction(inverse, subArrayIN, j);				
+			}
+		}	
+		return inverse;
+		
+	}
+	
+	
+	public static double[][] cBindMatrix(double[][] matrix1, double[][] matrix2){
+		if(matrix1.length != matrix2.length) {
+			throw new IllegalArgumentException("Matrixes need to have the same number of rows!");
+		}
+		double[][] matrix3 = new double[matrix1.length][matrix1[0].length + matrix2[0].length];
+		
+		for(int i = 0;i<matrix1.length;i++) {
+			for(int j = 0;j<matrix1[0].length;j++) {
+				matrix3[i][j] = matrix1[i][j];
+			}
+		}
+		
+		for(int i = 0;i<matrix1.length;i++) {
+			for(int j = matrix1[0].length;j<matrix1[0].length + matrix2[0].length;j++) {
+				matrix3[i][j] = matrix2[i][j - matrix1[0].length];
+			}
+		}
+		
+		return matrix3;		
+	}
+	
+	public static double[][] cBindVector(double[][] matrix, double[] vector){
+		if(matrix.length != vector.length) {
+			throw new IllegalArgumentException("Matrixes need to have the same number of rows as array length!");
+		}
+		
+		double[][] matrix1 = new double[matrix.length][matrix[0].length +1];
+		
+		for(int i = 0;i<matrix.length;i++) {
+			for(int j = 0;j<matrix[0].length;j++) {
+				matrix1[i][j] = matrix[i][j];
+			}
+		}
+		
+		for(int i = 0;i<matrix1.length;i++) {			
+			matrix1[i][matrix[0].length] = vector[i];
+			}
+		
+		return matrix1;		
+	}
+	
+	
+	public static double[][] rBindMatrix(double[][] matrix1, double[][] matrix2){
+		if(matrix1[0].length != matrix2[0].length) {
+			throw new IllegalArgumentException("Matrixes need to have the same number of columns!");
+		}
+		double[][] matrix3 = new double[matrix1.length + matrix2.length][matrix1[0].length];
+		
+		for(int i = 0;i<matrix1.length;i++) {
+			for(int j = 0;j<matrix1[0].length;j++) {
+				matrix3[i][j] = matrix1[i][j];
+			}
+		}
+		
+		for(int i = matrix1.length;i<matrix1.length + matrix2.length;i++) {
+			for(int j = 0;j<matrix2[0].length;j++) {
+				matrix3[i][j] = matrix2[i - matrix1.length][j];
+			}
+		}
+		
+		return matrix3;		
+	}
+	
+	
+	public static double[][] rBindVector(double[][] matrix, double[] vector){
+		if(matrix[0].length != vector.length) {
+			throw new IllegalArgumentException("Matrixes need to have the same number of columns as array length!");
+		}
+		
+		double[][] matrix1 = new double[matrix.length +1][matrix[0].length];
+		
+		for(int i = 0;i<matrix.length;i++) {
+			for(int j = 0;j<matrix[0].length;j++) {
+				matrix1[i][j] = matrix[i][j];
+			}
+		}
+		
+		for(int i = 0;i<vector.length;i++) {			
+			matrix1[matrix.length][i] = vector[i];
+			}
+		
+		return matrix1;		
+	}
+	
+	
 	
 
 }
