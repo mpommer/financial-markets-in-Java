@@ -60,4 +60,25 @@ public class AnalyticFormulas {
 			return valueAnalytic;
 		}
 	}
+	
+	
+	public static double bachelierOptionValue(double forward, double optionStrike,double volatility,
+            double optionMaturity, double periodLength, double discountFactor,double nominal) {
+		double dPlus = 0.0;
+        if(forward == optionStrike) {return volatility * Math.sqrt(optionMaturity / Math.PI / 2.0);}
+        else {
+        	if(optionMaturity > 0){
+        		dPlus = (forward - optionStrike) / (volatility * Math.sqrt(optionMaturity));
+        	}else {
+                dPlus = Double.MAX_VALUE;
+        	}
+        	
+    		NormalDistribution normalDis = new NormalDistribution();
+   
+            double valueAnalytic = periodLength * discountFactor* ((forward - optionStrike) * normalDis.cumulativeProbability(dPlus)+
+            		volatility * Math.sqrt(optionMaturity) * normalDis.density(dPlus));
+
+            return nominal * valueAnalytic;
+	}
+}
 }
