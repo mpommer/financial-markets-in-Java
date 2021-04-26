@@ -77,8 +77,10 @@ public class AnalyticFormulas {
    
             double valueAnalytic = periodLength * discountFactor* ((forward - optionStrike) * normalDis.cumulativeProbability(dPlus)+
             		volatility * Math.sqrt(optionMaturity) * normalDis.density(dPlus));
-
+            System.out.println(" ");
             return nominal * valueAnalytic;
+            
+            
 	}
 }
 }
