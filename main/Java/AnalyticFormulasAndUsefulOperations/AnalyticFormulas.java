@@ -83,4 +83,24 @@ public class AnalyticFormulas {
             
 	}
 }
+	
+	public static double BSSwaption(double forward, double optionStrike,double volatility,
+            double optionMaturity, double optionEnd, double periodLength, double[] discountFactor,double nominal) {
+        int numberOfPeriods = (int) ((optionEnd - optionMaturity)/periodLength);
+        if((optionEnd - optionMaturity)/periodLength % 1.0 != 0) {
+            System.out.println("need int number of periods");
+        }             
+
+
+//        # derive swap annuity
+        double swapAnnuity = 0.0;
+        for(int i = 0; i< numberOfPeriods;i++) {
+            swapAnnuity += periodLength * discountFactor[i];
+        }
+        
+        double analyticValue = blackScholesDigitalOptionDelta(forward, optionStrike, volatility,
+                    optionMaturity, swapAnnuity);
+        
+        return analyticValue;
+	}
 }
