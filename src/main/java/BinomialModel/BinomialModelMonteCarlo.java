@@ -93,5 +93,28 @@ public class BinomialModelMonteCarlo implements BinomialModel {
 		double[] pathAtTime = UsefullOperationsVectorsMatrixes.matrixGetColumn(realizations, timeIndex);
 		return pathAtTime;
 	}
-
+	
+	public double getMaximumAtTime(int timeIndex) {
+		double[] realizationsAtTime = getRealizationsAtTime(timeIndex);
+		double max = UsefullOperationsVectorsMatrixes.vectorMax(realizationsAtTime);				
+		return max;
+	}
+	
+	public double[] getEvolutionMax() {
+		double[] evolutionOfMax = new double[numberOfTimes];
+		for(int i = 0; i<numberOfTimes;i++) {
+			evolutionOfMax[i] = getMaximumAtTime(i);
+		}
+		return evolutionOfMax;
+	}
+	
+	public void printEvolutionMaximum() {
+		double[] evolutionOfMax = getEvolutionMax();
+		
+        System.out.println("The path of the maximum evolution is the following:");
+        for(int i = 0; i<evolutionOfMax.length;i++) {
+        System.out.println(evolutionOfMax[i]);
+        }
+        
+	}
 }
