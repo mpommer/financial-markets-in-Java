@@ -109,7 +109,7 @@ public class UsefullOperationsVectorsMatrixes {
 	 */
 	public static double[] matrixGetRow(double[][] matrix, int rowIndex) {
 		double[] row = new double[matrix[0].length];
-		for(int i = 0;i<matrix.length;i++) {		
+		for(int i = 0;i<matrix[0].length;i++) {		
 			row[i] = matrix[rowIndex-1][i];			
 		}
 		
@@ -124,7 +124,7 @@ public class UsefullOperationsVectorsMatrixes {
 	 */
 	public static double[] matrixGetColumn(double[][] matrix, int columnIndex) {
 		double[] column = new double[matrix.length];
-		for(int i = 0;i<matrix[0].length;i++) {		
+		for(int i = 0;i<matrix.length;i++) {		
 			column[i] = matrix[i][columnIndex-1];			
 		}
 		

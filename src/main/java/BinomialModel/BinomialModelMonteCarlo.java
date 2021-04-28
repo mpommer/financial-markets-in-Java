@@ -50,8 +50,8 @@ public class BinomialModelMonteCarlo implements BinomialModel {
 //		in any state start with initial value
 		for(int i =0;i <numberOfSimulations; i++) {realizations[0][i] = initialValue;}
 		
-		for(int j = 0;j <numberOfTimes; j++) {
-			for(int i =1;i <numberOfSimulations; i++) {
+		for(int j = 1;j <numberOfTimes; j++) {
+			for(int i =0;i <numberOfSimulations; i++) {
 				realizations[j][i] = realizations[j-1][i] * upsDowns[j-1][i];
 			}
 			
