@@ -19,17 +19,19 @@ public class BinomialModelMonteCarloAndSmartComparison {
 		
 		BinomialModelMonteCarlo  bmMonteCarlo = new BinomialModelMonteCarlo(initialValue, decreaseIfDown, increaseIfUp, numberOfTimes, numberOfSimulations, interestRate); 
 		BinomialModelMonteCarlo  bmSmart = new BinomialModelMonteCarlo(initialValue, decreaseIfDown, increaseIfUp, numberOfTimes, numberOfSimulations, interestRate); 
-
+		BinomialModelSmartLog	bmSmartLog = new BinomialModelSmartLog(initialValue, decreaseIfDown, increaseIfUp, numberOfTimes, interestRate);
+		
 		double valueMC = bmMonteCarlo.getDiscountedAverageValueAtTime(100);
 		double valueSmart = bmSmart.getDiscountedAverageValueAtTime(100);
-		System.out.println(valueMC);
+//		System.out.println(valueMC);
+//
+//		System.out.println(valueSmart);
+//		
+//		
+//		System.out.println(bmMonteCarlo.getMaximumAtTime(4));
 
-		System.out.println(valueSmart);
-		
-		
-		System.out.println(bmMonteCarlo.getMaximumAtTime(4));
-
-		bmMonteCarlo.plotEvolutionOfMaximum();
+//		bmMonteCarlo.plotEvolutionOfMaximum();
+		bmSmartLog.plotEvolutionOfProbabilitesOfGain();
 		
 	}
 
