@@ -9,6 +9,22 @@ package AnalyticFormulasAndUsefulOperations;
 
 public class UsefullOperationsVectorsMatrixes {
 	
+	
+	/**
+	 * Returns the minimum of the vector.
+	 * @param vector
+	 * @return Minimum
+	 */
+	public static double vectorAverage(double[] vector) {
+		double sum = 0;
+		for(int i = 0;i<vector.length;i++) {
+			sum += vector[i];
+		}
+		
+		return sum/vector.length;
+	}
+	
+	
 	/**
 	 * Returns the minimum of the vector.
 	 * @param vector
