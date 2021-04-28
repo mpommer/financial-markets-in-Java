@@ -23,21 +23,7 @@ public class BinomialModelSmart implements BinomialModel {
 	}
 	
 	
-	public double[][] getUpsDowns(){
-		double[][] upsDowns = new double[numberOfTimes][numberOfTimes];
-				
-		for(int i = 0; i<numberOfTimes;i++) {
-			for(int j=0;j<numberOfTimes;j++) {
-				double randomNumber = Math.random();
-					upsDowns[i][j] = randomNumber <this.riskneutralProbability ? increaseIfUp:decreaseIfDown;			
-			}
-		}
-		
-		return upsDowns;
-	}
-	
 
-	
 	@Override
 	public double[][] generateRealizations() {
 		if(this.realizations != null) {return this.realizations;}
@@ -115,11 +101,24 @@ public class BinomialModelSmart implements BinomialModel {
 		return probabilities;
 	}
 	
+	/**
+	 * It returns the smallest integer k such that (u)^kd^(timeIndex-k) > 1,
+     * i.e., such that the realization of the process given by k ups and
+     * timeIndex - k downs, discounted at time 0, is bigger than the initial value.
+	 * @param timeIndex
+	 * @return
+	 */
 	public int findThreshold(int timeIndex) {
 		
 		return (int) Math.floor(Math.log(Math.pow((1+interestRate)/decreaseIfDown,timeIndex))/Math.log(increaseIfUp/decreaseIfDown));
 	}
 	
+	/**
+	 * binomial coeffcient needed to calculate the threshold
+	 * @param n
+	 * @param k
+	 * @return
+	 */
 	private static long binomial(int n, int k) {
         if ((n == k) || (k == 0))
             return 1;

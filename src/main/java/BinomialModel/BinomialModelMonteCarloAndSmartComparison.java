@@ -8,7 +8,7 @@ public class BinomialModelMonteCarloAndSmartComparison {
 		double initialValue = 100.0;
 		double decreaseIfDown = 0.9;
 		double increaseIfUp = 1.1;
-		int numberOfTimes = 150;
+		int numberOfTimes = 100;
 		int numberOfSimulations = 100000;
 		double interestRate = 0.0;
 		
@@ -22,9 +22,15 @@ public class BinomialModelMonteCarloAndSmartComparison {
 
 		double valueMC = bmMonteCarlo.getDiscountedAverageValueAtTime(100);
 		double valueSmart = bmSmart.getDiscountedAverageValueAtTime(100);
+		System.out.println(valueMC);
+
 		System.out.println(valueSmart);
 		
+		
+		System.out.println(bmMonteCarlo.getMaximumAtTime(4));
 
+		bmMonteCarlo.plotEvolutionOfMaximum();
+		
 	}
 
 }
