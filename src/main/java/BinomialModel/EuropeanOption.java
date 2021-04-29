@@ -20,7 +20,7 @@ public class EuropeanOption {
 		double[] processRealizations = binomialModel.getRealizationsAtTime(maturity);
 		double[] payoffRealizations = new double[processRealizations.length];
 		for(int i = 0; i<processRealizations.length;i++) {
-			payoffRealizations[i] = function.apply(processRealizations[0]);			
+			payoffRealizations[i] = function.apply(processRealizations[i]);			
 		}
 		
 		double[] processProbabilities = binomialModel.getProbabilitiesOfRealizationsAtGivenTime(maturity);
@@ -47,7 +47,7 @@ public class EuropeanOption {
 		for(int i = 0; i<=maturity; i++) {
 			valuesPortfolio[maturity][i] = payoffRealizations[i];
 		}
-		for(int j = maturity;j>=0;j--) {
+		for(int j = maturity-1;j>=0;j--) {
 		for(int i = 0; i<j; i++) {
 			valuesPortfolio[j][i] = binomialModel.riskneutralProbability*valuesPortfolio[j+1][i] + (1-binomialModel.riskneutralProbability) * valuesPortfolio[j+1][i+1];
 		}
