@@ -10,9 +10,13 @@ Furthermore I added a test class in order to demonstrate how to use the methods.
 - Bisection: Finds the zero point of a function. Furthermore contains a method to calculate the pq formula in a numerically stable way.
 
 2) Automatic backward differentiation
-The clss performs the Automatic backward differentiation algorithm, i.e. diverentiate equations. The class RandomVariable enables the use of vectors. 
+The class performs the Automatic backward differentiation algorithm, i.e. diverentiate equations. The class RandomVariable enables the use of vectors. 
 Furthermore I added a test class in order to demonstrate how to use the methods in the context of calculating derivatives and also by calcualting 
 option deltas using the derivaive.
 
-
+3) Binomial Model
+- Normal model: risk neutral probabilitiy q = (1 + interestRate - decreaseIfDown)/ (increaseIfUp - decreaseIfDown). Two Implementations, the first performs a 
+Monte Carlo calculation of the price, the second (smart) calculates all probabilities and calcualtes the price with probability times price.  
+- log model: risk neutral probabilitiy q = (Math.log(decreaseIfDown)/ (-Math.log(increaseIfUp) + Math.log(decreaseIfDown))). Two Implementations, the first performs a 
+Monte Carlo calculation of the price, the second (smart) calculates all probabilities and calculates the price with probability times price. 
 
