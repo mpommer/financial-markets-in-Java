@@ -73,7 +73,7 @@ public class BinomialModelSmart implements BinomialModel {
 			return sum;
 		} else {
 			int threshold = findThreshold(timeIndex);
-			for(int i = 0; i<timeIndex-threshold +1;i++) {
+			for(int i = 0; i<timeIndex-threshold;i++) {
 				sum += probabilities[i];
 			}
 		}
@@ -93,10 +93,10 @@ public class BinomialModelSmart implements BinomialModel {
 	public double[] getProbabilitiesOfRealizationsAtGivenTime(int timeIndex) {
 		double[] probabilities = new double[timeIndex];
 		if(timeIndex == 0 ) {
-			probabilities[0] = 0.0;
-			return probabilities;
+			double[] re = {0.0};
+			return re;
 		}else {
-			for(int i = 0;i <timeIndex +1; i++) {
+			for(int i = 0;i <timeIndex ; i++) {
 				probabilities[i] = binomial(timeIndex, i)*Math.pow(riskneutralProbability,timeIndex-i)
 						* (Math.pow(1-riskneutralProbability, i));
 			}
@@ -149,7 +149,7 @@ public class BinomialModelSmart implements BinomialModel {
 			times.add((double) i);
 			}
  		Plots.createPlotScatter(times, evolutionDiscountedAverage,0,0, 2)
-		.setTitle("Evolution of the Discounted Average")
+		.setTitle("Evolution of the Discounted Average smart model")
 		.setXAxisLabel("time")
 		.setYAxisLabel("Discounted Average")
 		.setYAxisNumberFormat(new DecimalFormat("0.00")).show();	}

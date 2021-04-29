@@ -63,7 +63,7 @@ public class BinomialModelSmartLog implements BinomialModel {
 		double[] probabilities = getProbabilitiesOfRealizationsAtGivenTime(timeIndex);
 		double[] realizations = getRealizationsAtTime(timeIndex);
 		if(timeIndex == 0 ) {			
-			return initialValue;
+			return Math.log(initialValue);
 		} else {
 			for(int i =0; i<timeIndex; i++) {
 				sum += probabilities[i] * realizations[i];
@@ -157,18 +157,17 @@ public class BinomialModelSmartLog implements BinomialModel {
 	 * Plots the evolution of the probabilities of gain.
 	 */
 	public void plotEvolutionOfProbabilitesOfGain() {
-		System.out.println("test0");
+		
 
 		final List<Double> evolutionGain = new ArrayList<Double>();
 		final List<Double> times = new ArrayList<Double>();
 		double[] evolution = evolutionOfProbabilitiesOfGain();
-		System.out.println("test1");
+		
 		for(double i = 0; i<numberOfTimes; i++) {
 			evolutionGain.add(evolution[(int) i]);
 			times.add(i);
 		}
-		System.out.println("test2");
-
+		
  		Plots.createPlotScatter(times, evolutionGain,0,0, 2)
 		.setTitle("Evolution of the probabilities of Gain smart log model")
 		.setXAxisLabel("time")

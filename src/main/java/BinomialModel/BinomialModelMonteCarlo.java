@@ -189,7 +189,7 @@ public class BinomialModelMonteCarlo implements BinomialModel {
 			times.add((double) i);
 			}
  		Plots.createPlotScatter(times, evolutionDiscountedAverage,0,0, 2)
-		.setTitle("Evolution of the Discounted Average")
+		.setTitle("Evolution of the Discounted Average monte carlo")
 		.setXAxisLabel("time")
 		.setYAxisLabel("Discounted Average")
 		.setYAxisNumberFormat(new DecimalFormat("0.00")).show();	}
