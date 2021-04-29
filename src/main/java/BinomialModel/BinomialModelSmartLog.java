@@ -31,19 +31,26 @@ public class BinomialModelSmartLog implements BinomialModel {
 
 	@Override
 	public double[][] generateRealizations() {
+
 		if(this.realizations != null) {return this.realizations;}
 		
 		double[][] realizations = new double[numberOfTimes][numberOfTimes];
 
 //		in any state start with initial value
-		realizations[0][0] = Math.log(initialValue);
+		realizations[0][0] = initialValue;
 		
 		for(int j = 1;j <numberOfTimes; j++) {
-			realizations[j][0] = Math.log(increaseIfUp*realizations[j-1][0]);
+			realizations[j][0] = increaseIfUp*realizations[j-1][0];
 			for(int i = 1; i< numberOfTimes; i++) {
-			realizations[j][i] = Math.log(decreaseIfDown * realizations[j-1][i-1]);
+			realizations[j][i] = decreaseIfDown * realizations[j-1][i-1];
 			}
-		}		
+		}	
+		
+		for(int j = 0;j <numberOfTimes; j++) {
+			for(int i =0;i <numberOfTimes; i++) {
+				realizations[j][i] = Math.log(realizations[j][i]);
+			}			
+		}
 		this.realizations = realizations;
 		return realizations;
 	}
@@ -73,7 +80,7 @@ public class BinomialModelSmartLog implements BinomialModel {
 			return sum;
 		} else {
 			int threshold = findThreshold(timeIndex);
-			for(int i = 0; i<timeIndex-threshold ;i++) {
+			for(int i = 0; i<timeIndex-threshold;i++) {
 				sum += probabilities[i];
 			}
 		}
@@ -98,7 +105,7 @@ public class BinomialModelSmartLog implements BinomialModel {
 		}else {
 			for(int i = 0;i <timeIndex ; i++) {
 				probabilities[i] = binomial(timeIndex, i)*Math.pow(riskneutralProbability,timeIndex-i)
-						* (Math.pow(riskneutralProbability, i));
+						* (Math.pow(1-riskneutralProbability, i));
 			}
 			
 		}
@@ -163,7 +170,7 @@ public class BinomialModelSmartLog implements BinomialModel {
 		System.out.println("test2");
 
  		Plots.createPlotScatter(times, evolutionGain,0,0, 2)
-		.setTitle("Evolution of the probabilities of Gain")
+		.setTitle("Evolution of the probabilities of Gain smart log model")
 		.setXAxisLabel("time")
 		.setYAxisLabel("probability")
 		.setYAxisNumberFormat(new DecimalFormat("0.00")).show();

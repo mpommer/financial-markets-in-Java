@@ -1,6 +1,11 @@
 package BinomialModel;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 import AnalyticFormulasAndUsefulOperations.UsefullOperationsVectorsMatrixes;
+import net.finmath.plots.Plots;
 
 public class BinomialModelSmart implements BinomialModel {
 
@@ -93,7 +98,7 @@ public class BinomialModelSmart implements BinomialModel {
 		}else {
 			for(int i = 0;i <timeIndex +1; i++) {
 				probabilities[i] = binomial(timeIndex, i)*Math.pow(riskneutralProbability,timeIndex-i)
-						* (Math.pow(riskneutralProbability, i));
+						* (Math.pow(1-riskneutralProbability, i));
 			}
 			
 		}
@@ -126,4 +131,51 @@ public class BinomialModelSmart implements BinomialModel {
             return binomial(n - 1, k) + binomial(n - 1, k - 1);
     }
 
+	public double[] getEvolutionDiscountedAverageValue() {
+		double[] evolutionDiscountedAverage = new double[numberOfTimes];
+		for(int i = 0; i<numberOfTimes;i++) {
+			evolutionDiscountedAverage[i] = getDiscountedAverageValueAtTime(i);
+		}
+		return evolutionDiscountedAverage;
+	}
+
+	public void plotEvolutionDiscountedAverageValue() {
+		final List<Double> evolutionDiscountedAverage = new ArrayList<Double>();
+		final List<Double> times = new ArrayList<Double>();
+		final double[] discountedArray = getEvolutionDiscountedAverageValue();
+		
+		for(int i = 0; i<numberOfTimes;i++) {
+			evolutionDiscountedAverage.add(discountedArray[i]);
+			times.add((double) i);
+			}
+ 		Plots.createPlotScatter(times, evolutionDiscountedAverage,0,0, 2)
+		.setTitle("Evolution of the Discounted Average")
+		.setXAxisLabel("time")
+		.setYAxisLabel("Discounted Average")
+		.setYAxisNumberFormat(new DecimalFormat("0.00")).show();	}
+	
+	public double[] getEvolutionProbabilitiesOfGain() {
+		double[] evolutionProbabilitiesOfGain = new double[numberOfTimes];
+		for(int i = 0; i<numberOfTimes;i++) {
+			evolutionProbabilitiesOfGain[i] = probabilityOfGainAtTime(i);
+		}
+		return evolutionProbabilitiesOfGain;
+	}
+
+	public void plotEvolutionProbabilitiesOfGain() {
+		final List<Double> evolutionProbabilitiesOfGain = new ArrayList<Double>();
+		final List<Double> times = new ArrayList<Double>();
+		final double[] probabilitiOfGain = getEvolutionProbabilitiesOfGain();
+		
+		for(int i = 0; i<numberOfTimes;i++) {
+			evolutionProbabilitiesOfGain.add(probabilitiOfGain[i]);
+			times.add((double) i);
+			}
+ 		Plots.createPlotScatter(times, evolutionProbabilitiesOfGain,0,0, 2)
+		.setTitle("Evolution of the Discounted Average")
+		.setXAxisLabel("time")
+		.setYAxisLabel("Discounted Average")
+		.setYAxisNumberFormat(new DecimalFormat("0.00")).show();	}
+	
+	
 }

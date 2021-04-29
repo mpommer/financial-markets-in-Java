@@ -6,9 +6,9 @@ public class BinomialModelMonteCarloAndSmartComparison {
 
 	public static void main(String[] args) {
 		double initialValue = 100.0;
-		double decreaseIfDown = 0.9;
-		double increaseIfUp = 1.1;
-		int numberOfTimes = 100;
+		double decreaseIfDown = 0.5;
+		double increaseIfUp = 1.5;
+		int numberOfTimes = 50;
 		int numberOfSimulations = 100000;
 		double interestRate = 0.0;
 		
@@ -20,9 +20,12 @@ public class BinomialModelMonteCarloAndSmartComparison {
 		BinomialModelMonteCarlo  bmMonteCarlo = new BinomialModelMonteCarlo(initialValue, decreaseIfDown, increaseIfUp, numberOfTimes, numberOfSimulations, interestRate); 
 		BinomialModelMonteCarlo  bmSmart = new BinomialModelMonteCarlo(initialValue, decreaseIfDown, increaseIfUp, numberOfTimes, numberOfSimulations, interestRate); 
 		BinomialModelSmartLog	bmSmartLog = new BinomialModelSmartLog(initialValue, decreaseIfDown, increaseIfUp, numberOfTimes, interestRate);
+		BinomialModelMonteCarloLog bmMonteCarloLog = new BinomialModelMonteCarloLog(initialValue, decreaseIfDown, increaseIfUp, numberOfTimes, numberOfSimulations, interestRate); 
 		
-		double valueMC = bmMonteCarlo.getDiscountedAverageValueAtTime(100);
-		double valueSmart = bmSmart.getDiscountedAverageValueAtTime(100);
+//		System.out.println(bmMonteCarloLog.getDiscountedAverageValueAtTime(5));
+		
+//		double valueMC = bmMonteCarlo.getDiscountedAverageValueAtTime(100);
+//		double valueSmart = bmSmart.getDiscountedAverageValueAtTime(100);
 //		System.out.println(valueMC);
 //
 //		System.out.println(valueSmart);
@@ -31,6 +34,9 @@ public class BinomialModelMonteCarloAndSmartComparison {
 //		System.out.println(bmMonteCarlo.getMaximumAtTime(4));
 
 //		bmMonteCarlo.plotEvolutionOfMaximum();
+//		bmMonteCarlo.plotEvolutionProbabilitiesOfGain();
+//		bmMonteCarloLog.plotEvolutionProbabilitiesOfGain();
+//		bmSmart.plotEvolutionProbabilitiesOfGain();
 		bmSmartLog.plotEvolutionOfProbabilitesOfGain();
 		
 	}

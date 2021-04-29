@@ -2,21 +2,13 @@ package BinomialModel;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 import AnalyticFormulasAndUsefulOperations.UsefullOperationsVectorsMatrixes;
 import net.finmath.plots.Plots;
 
-/**
- * Implementation of the Binomial model interface using monte carlo.
- * 
- * @author Marcel Pommer
- *
- */
+public class BinomialModelMonteCarloLog implements BinomialModel {
 
-public class BinomialModelMonteCarlo implements BinomialModel {
 	double initialValue;
 	double decreaseIfDown;
 	double increaseIfUp;
@@ -26,7 +18,7 @@ public class BinomialModelMonteCarlo implements BinomialModel {
 	double riskneutralProbability;
 	double[][] realizations = null;
 	
-	public BinomialModelMonteCarlo(double initialValue, double decreaseIfDown, double increaseIfUp,
+	public BinomialModelMonteCarloLog(double initialValue, double decreaseIfDown, double increaseIfUp,
             int numberOfTimes, int numberOfSimulations,double interestRate) {
 		this.initialValue = initialValue;
 		this.decreaseIfDown = decreaseIfDown;
@@ -34,7 +26,7 @@ public class BinomialModelMonteCarlo implements BinomialModel {
 		this.numberOfTimes = numberOfTimes;
 		this.numberOfSimulations = numberOfSimulations;
 		this.interestRate = interestRate;
-		this.riskneutralProbability = (1 + interestRate - decreaseIfDown)/ (increaseIfUp - decreaseIfDown);
+		this.riskneutralProbability = (Math.log(decreaseIfDown)/ (-Math.log(increaseIfUp) + Math.log(decreaseIfDown)));
 	}
 	
 	/**
@@ -70,9 +62,14 @@ public class BinomialModelMonteCarlo implements BinomialModel {
 		for(int j = 1;j <numberOfTimes; j++) {
 			for(int i =0;i <numberOfSimulations; i++) {
 				realizations[j][i] = realizations[j-1][i] * upsDowns[j-1][i];
-			}
-			
-		}		
+			}			
+		}	
+		
+		for(int j = 0;j <numberOfTimes; j++) {
+			for(int i =0;i <numberOfSimulations; i++) {
+				realizations[j][i] = Math.log(realizations[j][i]);
+			}			
+		}
 		this.realizations = realizations;
 		return realizations;
 	}
@@ -92,7 +89,7 @@ public class BinomialModelMonteCarlo implements BinomialModel {
 		double[] realizationsAtTimeIndex = getRealizationsAtTime(timeIndex);
 		double[] probOfGain = new double[realizationsAtTimeIndex.length];
 		for(int i = 0;i<realizationsAtTimeIndex.length;i++) {
-			probOfGain[i] = initialValue *Math.pow(1 +interestRate, timeIndex) <= realizationsAtTimeIndex[i] ? 1:0;
+			probOfGain[i] = Math.log(initialValue) *Math.pow(1 +interestRate, timeIndex) <= realizationsAtTimeIndex[i] ? 1:0;
 		}
 		return UsefullOperationsVectorsMatrixes.vectorAverage(probOfGain)*100;
 	}
@@ -189,7 +186,7 @@ public class BinomialModelMonteCarlo implements BinomialModel {
 			times.add((double) i);
 			}
  		Plots.createPlotScatter(times, evolutionDiscountedAverage,0,0, 2)
-		.setTitle("Evolution of the Discounted Average")
+		.setTitle("Evolution of the Discounted Average Monte Carlo Log")
 		.setXAxisLabel("time")
 		.setYAxisLabel("Discounted Average")
 		.setYAxisNumberFormat(new DecimalFormat("0.00")).show();	}
@@ -212,8 +209,9 @@ public class BinomialModelMonteCarlo implements BinomialModel {
 			times.add((double) i);
 			}
  		Plots.createPlotScatter(times, evolutionProbabilitiesOfGain,0,0, 2)
-		.setTitle("Evolution of Probabilities of Gain")
+		.setTitle("Evolution of Probabilities of Gain Monte Carlo log")
 		.setXAxisLabel("time")
 		.setYAxisLabel("Discounted Average")
 		.setYAxisNumberFormat(new DecimalFormat("0.00")).show();	}
+
 }
