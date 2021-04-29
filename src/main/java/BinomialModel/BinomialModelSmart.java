@@ -9,12 +9,12 @@ import net.finmath.plots.Plots;
 
 public class BinomialModelSmart implements BinomialModel {
 
-	double initialValue;
-	double decreaseIfDown;
-	double increaseIfUp;
+	public double initialValue;
+	public double decreaseIfDown;
+	public double increaseIfUp;
 	int numberOfTimes;
-	double interestRate;
-	double riskneutralProbability;
+	public double interestRate;
+	public double riskneutralProbability;
 	double[][] realizations = null;
 	
 	public BinomialModelSmart(double initialValue, double decreaseIfDown, double increaseIfUp,
