@@ -29,5 +29,6 @@ public interface BinomialModel {
 	 */
 	double probabilityOfGainAtTime(int timeIndex);
 	
+	
 
 }
