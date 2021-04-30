@@ -8,12 +8,12 @@ import BinomialModel.BinomialModelSmart;
 public class AmericanOption {
 	
 	BinomialModelSmart binomialModel;
-	double[][] valuesExercise; 
-	double[][] valuesIfWait; 
-	double[][] valuesOption;  
-	boolean[][] exercise; 
+	private double[][] valuesExercise; 
+	private double[][] valuesIfWait; 
+	private double[][] valuesOption;  
+	private boolean[][] exercise; 
 	
-	private enum analysisOption {
+	public enum analysisOption {
 		VALUESEXERCISE, VALUESIFWAIT, VALUESOPTION, EXERCISE
 	}
 	
@@ -25,27 +25,29 @@ public class AmericanOption {
 		double[] processRealizations = binomialModel.getRealizationsAtTime(maturity);
 		double[] payoffRealizations = new double[processRealizations.length];
 		for(int i = 0; i<processRealizations.length;i++) {
-			payoffRealizations[i] = function.apply(processRealizations[0]);			
+			payoffRealizations[i] = function.apply(processRealizations[i]);			
 		}
 		
-		for(int j = maturity-1;j>=0;j--) {
-			double[] processRealizationsAtTimeJ = binomialModel.getRealizationsAtTime(j);
-			double[] optionPart = new double[processRealizations.length];
-			for(int i = 0; i<processRealizations.length;i++) {
-				optionPart[i] = function.apply(processRealizationsAtTimeJ[0]);			
+		for(int timeIndexBackward = maturity-1;timeIndexBackward>=0;timeIndexBackward--) {
+			double[] processRealizationsAtTimeJ = binomialModel.getRealizationsAtTime(timeIndexBackward);
+			double[] optionPart = new double[processRealizationsAtTimeJ.length];
+			for(int i = 0; i<=timeIndexBackward;i++) {
+				optionPart[i] = function.apply(processRealizationsAtTimeJ[i]);			
 			}
-			double[] valuationPart = new double[processRealizations.length-1];
-		for(int i = 0; i<valuationPart.length; i++) {
-			valuationPart[i] = (binomialModel.riskneutralProbability*payoffRealizations[j] + 
-		(1-binomialModel.riskneutralProbability) * payoffRealizations[j+1])/(1+binomialModel.interestRate);
+			double[] valuationPart = new double[processRealizationsAtTimeJ.length];
+		for(int i = 0; i<=timeIndexBackward; i++) {
+			valuationPart[i] = (binomialModel.riskneutralProbability*payoffRealizations[i] + 
+		(1-binomialModel.riskneutralProbability) * payoffRealizations[i+1])/(1+binomialModel.interestRate);
 		}
-		for(int i = 0; i<processRealizations.length;i++) {
+		for(int i = 0; i<=timeIndexBackward;i++) {
 			payoffRealizations[i] =  Math.max(optionPart[i], valuationPart[i]) ;			
 		}
 		}	
 		
 		return payoffRealizations[0];
 	}
+	
+	
 	
 	private void generateAnalysisOption(int maturity, Function<Double, Double> function) {
 		double[][] valuesExercise = new double[maturity+1][maturity+1]; 
@@ -55,7 +57,7 @@ public class AmericanOption {
 		double[] processRealizations = binomialModel.getRealizationsAtTime(maturity);
 		double[] payoffRealizations = new double[processRealizations.length];
 		for(int i = 0; i<processRealizations.length;i++) {
-			payoffRealizations[i] = function.apply(processRealizations[0]);	
+			payoffRealizations[i] = function.apply(processRealizations[i]);	
 			valuesExercise[maturity][i] = payoffRealizations[i];
 			valuesIfWait[maturity][i] = payoffRealizations[i];
 			valuesOption[maturity][i] = payoffRealizations[i];
@@ -64,14 +66,14 @@ public class AmericanOption {
 		
 		for(int j = maturity-1;j>=0;j--) {
 			double[] processRealizationsAtTimeJ = binomialModel.getRealizationsAtTime(j);
-			double[] optionPart = new double[processRealizations.length];
-			for(int i = 0; i<processRealizations.length;i++) {
-				optionPart[i] = function.apply(processRealizationsAtTimeJ[0]);			
+			double[] optionPart = new double[j+1];
+			for(int i = 0; i<=j;i++) {
+				optionPart[i] = function.apply(processRealizationsAtTimeJ[i]);			
 			}
-			double[] valuationPart = new double[processRealizations.length-1];
-			for(int i = 0; i<j+1; i++) {
-				valuationPart[i] = binomialModel.riskneutralProbability/(1-binomialModel.interestRate)*
-				valuesOption[j+1][i] + (1- binomialModel.riskneutralProbability) * 	valuesOption[j+1][i+1];	
+			double[] valuationPart = new double[j+1];
+			for(int i = 0; i<=j; i++) {
+				valuationPart[i] = binomialModel.riskneutralProbability/(1+binomialModel.interestRate)*
+				valuesOption[j+1][i] + (1- binomialModel.riskneutralProbability) / (1+binomialModel.interestRate) * 	valuesOption[j+1][i+1];	
 			}
 			
 			for(int i = 0; i<j+1; i++) {
