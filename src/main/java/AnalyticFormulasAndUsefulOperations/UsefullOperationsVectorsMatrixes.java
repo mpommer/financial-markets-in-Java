@@ -516,6 +516,11 @@ public class UsefullOperationsVectorsMatrixes {
 		return vector2;		
 	}
 	
+	/**
+	 * changes booleans to double (matrix)
+	 * @param matrix
+	 * @return
+	 */
 	public static double[][] changeBooleanToDouble(boolean[][] matrix){
 		double[][] matrixDouble = new double[matrix.length][matrix[0].length];
 		for(int i = 0; i< matrix.length;i++) {
@@ -525,5 +530,45 @@ public class UsefullOperationsVectorsMatrixes {
 		}
 		return matrixDouble;
 	}
+	
+	/**
+	 * changes booleans to int (matrix)
+	 * @param matrix
+	 * @return
+	 */
+	public static int[][] changeBooleanToInt(boolean[][] matrix){
+		int[][] intMatrix = new int[matrix.length][matrix[0].length];
+		for(int i = 0; i< matrix.length;i++) {
+			for(int j = 0; j< matrix[0].length; j++) {
+				intMatrix[i][j] = matrix[i][j] == true ? 1 : 0;
+			}
+		}
+		return intMatrix;
+	}
+	
+	/**
+	 * changes booleans to double (array)
+	 * @param boolan array
+	 * @return
+	 */
+	public static double[] changeBooleanToDouble(boolean[] array){
+		double[] matrixDouble = new double[array.length];
+		for(int i = 0; i< array.length;i++) {			
+				matrixDouble[i] = array[i] == true ? 1.0 : 0.0;			
+		}
+		return matrixDouble;
+	}
 
+	/**
+	 * changes booleans to int (array)
+	 * @param boolean array
+	 * @return
+	 */
+	public static int[] changeBooleanToint(boolean[] array){
+		int[] arrayInt = new int[array.length];
+		for(int i = 0; i< array.length;i++) {			
+			arrayInt[i] = array[i] == true ? 1 : 0;			
+		}
+		return arrayInt;
+	}
 }
