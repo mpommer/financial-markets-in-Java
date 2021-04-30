@@ -2,6 +2,7 @@ package derivates;
 
 import java.util.function.Function;
 
+import AnalyticFormulasAndUsefulOperations.UsefullOperationsVectorsMatrixes;
 import BinomialModel.BinomialModelSmart;
 
 public class AmericanOption {
@@ -10,7 +11,11 @@ public class AmericanOption {
 	double[][] valuesExercise; 
 	double[][] valuesIfWait; 
 	double[][] valuesOption;  
-	double[][] exercise; 
+	boolean[][] exercise; 
+	
+	private enum analysisOption {
+		VALUESEXERCISE, VALUESIFWAIT, VALUESOPTION, EXERCISE
+	}
 	
 	public AmericanOption(BinomialModelSmart binModel) {
 		this.binomialModel = binModel;
@@ -42,7 +47,7 @@ public class AmericanOption {
 		return payoffRealizations[0];
 	}
 	
-	public void generateAnalysisOption(int maturity, Function<Double, Double> function) {
+	private void generateAnalysisOption(int maturity, Function<Double, Double> function) {
 		double[][] valuesExercise = new double[maturity+1][maturity+1]; 
 		double[][] valuesIfWait= new double[maturity+1][maturity+1]; 
 		double[][] valuesOption= new double[maturity+1][maturity+1];  
@@ -68,15 +73,39 @@ public class AmericanOption {
 				valuationPart[i] = binomialModel.riskneutralProbability/(1-binomialModel.interestRate)*
 				valuesOption[j+1][i] + (1- binomialModel.riskneutralProbability) * 	valuesOption[j+1][i+1];	
 			}
+			
 			for(int i = 0; i<j+1; i++) {
-				valuesOption[i] = binomialModel.riskneutralProbability/(1-binomialModel.interestRate)*
-				valuesOption[j+1][i] + (1- binomialModel.riskneutralProbability) * 	valuesOption[j+1][i+1];	
-			}
-			valuesOption[timeIndexBackward, 0:timeIndexBackward + 1] =\
-	                np.maximum(optionPart, valuationPart)  
-
-		}		
+				valuesOption[j][i] = Math.max(optionPart[i], valuationPart[i]); 
+				valuesExercise[j][i] = optionPart[i];
+				valuesIfWait[j][i] = valuationPart[i];
+				exercise[j][i] = optionPart[i]>valuationPart[i]? true:false;
+			}			
+		}
+		this.valuesExercise = valuesExercise;
+		this.valuesIfWait = valuesIfWait;
+		this.valuesOption = valuesOption;
+		this.exercise = exercise;
 	}
+		
+		
+		public double[][] getAnalysisOption(int maturity, Function<Double, Double> function, analysisOption returnType){
+			if(valuesExercise==null) {
+				generateAnalysisOption(maturity,function);
+			}		
+			switch (returnType) {
+			case VALUESEXERCISE:
+				return this.valuesExercise;
+			case VALUESIFWAIT:
+				return this.valuesIfWait;
+			case VALUESOPTION:
+				return this.valuesOption;	
+			case EXERCISE:
+				double[][] ex = UsefullOperationsVectorsMatrixes.changeBooleanToDouble(this.exercise);
+				return ex;
+			}
+			return null;
+		}
+	
 	
 
 }

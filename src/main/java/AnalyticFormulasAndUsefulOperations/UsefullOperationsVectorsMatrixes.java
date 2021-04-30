@@ -516,6 +516,14 @@ public class UsefullOperationsVectorsMatrixes {
 		return vector2;		
 	}
 	
-	
+	public static double[][] changeBooleanToDouble(boolean[][] matrix){
+		double[][] matrixDouble = new double[matrix.length][matrix[0].length];
+		for(int i = 0; i< matrix.length;i++) {
+			for(int j = 0; j< matrix[0].length; j++) {
+				matrixDouble[i][j] = matrix[i][j] == true ? 1.0 : 0.0;
+			}
+		}
+		return matrixDouble;
+	}
 
 }
