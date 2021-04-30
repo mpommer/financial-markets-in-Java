@@ -6,7 +6,12 @@ import AnalyticFormulasAndUsefulOperations.UsefullOperationsVectorsMatrixes;
 import BinomialModel.BinomialModelSmart;
 
 
-
+/**
+ * European option (exercice of the option is ony at the end possible). 
+ * 
+ * @author Marcel Pommer
+ *
+ */
 
 public class EuropeanOption {
 	BinomialModelSmart binomialModel;
@@ -17,6 +22,13 @@ public class EuropeanOption {
 		this.binomialModel = binModel;
 	}
 	
+	/**
+	 * Evaluates the payoff.
+	 * 
+	 * @param maturity
+	 * @param function
+	 * @return
+	 */
 	public double evaluatePayoff(int maturity, Function<Double, Double> function) {
 		double[] processRealizations = binomialModel.getRealizationsAtTime(maturity);
 		double[] payoffRealizations = new double[processRealizations.length];
@@ -33,11 +45,25 @@ public class EuropeanOption {
 		return sum;
 	}
 
+	/**
+	 * discounted payoff
+	 * 
+	 * @param maturity
+	 * @param function
+	 * @return
+	 */
 	public double evaluateDiscountedPayoff(int maturity, Function<Double, Double> function) {
 		double discountedAverage =  evaluatePayoff(maturity, function)*Math.pow(1+binomialModel.interestRate, -maturity);				
 		return discountedAverage;
 	}
 	
+	/**
+	 * calculates the portfolio value backward.
+	 * 
+	 * @param maturity
+	 * @param function
+	 * @return
+	 */
 	public double[][] getValuePortfolioBackward(int maturity, Function<Double, Double> function) {
 		double[][] valuesPortfolio = new double[maturity + 1][maturity + 1];
 		double[] processRealizations = binomialModel.getRealizationsAtTime(maturity);
@@ -57,6 +83,14 @@ public class EuropeanOption {
 		return valuesPortfolio;
 	}
 	
+	/**
+	 * returns the portfolio value at a given time.
+	 * 
+	 * @param currentTime
+	 * @param maturity
+	 * @param function
+	 * @return
+	 */
 	public double[] portfolioValueBackwardAtGivenTime(int currentTime, int maturity,  Function<Double, Double> function) {
 		double[][] portfolioValuesBackward = getValuePortfolioBackward(maturity, function);
 		double[] valuesAtTime = new double[currentTime+1];
@@ -66,6 +100,14 @@ public class EuropeanOption {
 		return valuesAtTime;
 	}
 	
+	/**
+	 * returns the discounted portfolio value at a given time.
+	 * 
+	 * @param currentTime
+	 * @param maturity
+	 * @param function
+	 * @return
+	 */	
 	public double[] portfolioValueDscountedAtGivenTime(int currentTime, int maturity,  Function<Double, Double> function) {
 		double[] valuesAtTime = portfolioValueBackwardAtGivenTime(currentTime, maturity, function );
 		double mulitplier = Math.pow(1+ binomialModel.interestRate, -(maturity - currentTime));
@@ -73,16 +115,37 @@ public class EuropeanOption {
 		return valuesAtTimeDiscounted;
 	}
 	
+	/**
+	 * returns initial value of the portfolio.
+	 * 
+	 * @param maturity
+	 * @param function
+	 * @return
+	 */
 	public double getInitialPortfolioValue(int maturity,  Function<Double, Double> function) {
 		double[][] portfolioValues = getValuePortfolioBackward(maturity, function);
 		return portfolioValues[0][0];
 	}
 	
+	/**
+	 * returns discounted initial value of the portfolio.
+	 * 
+	 * @param maturity
+	 * @param function
+	 * @return
+	 */
 	public double getDiscountedInitialPortfolioValue(int maturity,  Function<Double, Double> function) {
 		double initialValue = getInitialPortfolioValue(maturity, function);
 		return Math.pow(1+ binomialModel.interestRate, -maturity)*initialValue;
 	}
 	
+	/**
+	 * calculates the strategy for the amount of the risky asset.
+	 * 
+	 * @param maturity
+	 * @param function
+	 * @return
+	 */
 	public double[][] getStrategyAmountRiskyAsset(int maturity,  Function<Double, Double> function) {
 		double u = binomialModel.increaseIfUp;
 		double d = binomialModel.decreaseIfDown;
@@ -103,6 +166,13 @@ public class EuropeanOption {
 		return amountRiskyAssets;
 	}
 	
+	/**
+	 * calculates the strategy for the amount of the risk free asset.
+	 * 
+	 * @param maturity
+	 * @param function
+	 * @return
+	 */
 	public double[][] getStrategyAmountRiskFreeAsset(int maturity,  Function<Double, Double> function) {
 	if(this.amountRiskFreeAssets != null) {
 		return this.amountRiskFreeAssets;
@@ -112,12 +182,16 @@ public class EuropeanOption {
 	return this.amountRiskFreeAssets;
 	}
 	
+	
+	/**
+	 * calculates the strategy for the amount of the risk free and the risky asset at given time. The first row is the strategy 
+	 * of the risk free asset, the second the strategy of the risky asset.
+	 * 
+	 * @param maturity
+	 * @param function
+	 * @return
+	 */
 	public double[][] getStrategyAtGivenTime(int currentTime, int maturity,Function<Double, Double> function){
-		if(this.amountRiskFreeAssets != null) {
-			return this.amountRiskFreeAssets;
-		} else {
-			double[][] r = getStrategyAmountRiskyAsset(maturity, function);
-		}
 		double[] amountRiskFreeAssetAtCurrentTime = UsefullOperationsVectorsMatrixes.matrixGetRow(this.amountRiskFreeAssets, currentTime);
 		double[] amountRiskyAssetAtCurrentTime = UsefullOperationsVectorsMatrixes.matrixGetRow(this.amountRiskyAssets, currentTime);		
 		double[][] amountRiskyAndRiskFreeAssetsAtCurrentTime = new double[2][amountRiskyAssetAtCurrentTime.length];

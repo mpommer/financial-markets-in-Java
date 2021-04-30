@@ -5,6 +5,13 @@ import java.util.function.Function;
 import AnalyticFormulasAndUsefulOperations.UsefullOperationsVectorsMatrixes;
 import BinomialModel.BinomialModelSmart;
 
+
+/**
+ * American option (exercice of the option is always possible). Cacluates the price and some useful indicators like values if exercicie/if wait.
+ * 
+ * @author Marcel Pommer
+ *
+ */
 public class AmericanOption {
 	
 	BinomialModelSmart binomialModel;
@@ -21,6 +28,14 @@ public class AmericanOption {
 		this.binomialModel = binModel;
 	}
 	
+	
+	/**
+	 * Calculates the value of the american option.
+	 * 
+	 * @param maturity
+	 * @param function
+	 * @return
+	 */
 	public double getValuePortfolioBackward(int maturity, Function<Double, Double> function) {
 		double[] processRealizations = binomialModel.getRealizationsAtTime(maturity);
 		double[] payoffRealizations = new double[processRealizations.length];
@@ -90,6 +105,20 @@ public class AmericanOption {
 	}
 		
 		
+	/**
+	 * Returns useful matrixes like values if exercise etc. The corresponding matrixes are computed in a different private
+	 * method.
+	 * returnTye is of the enum type analysisOption. It is possible to return:
+	 * VALUESEXERCISE: values if exercise.
+	 * VALUESIFWAIT: values if waited
+	 * VALUESOPTION: value of the option.
+	 * EXERCISE: boolean, if to exercise or not(for this purpose saved as double (1/0)).
+	 * 
+	 * @param maturity
+	 * @param function
+	 * @param returnType
+	 * @return
+	 */
 		public double[][] getAnalysisOption(int maturity, Function<Double, Double> function, analysisOption returnType){
 			if(valuesExercise==null) {
 				generateAnalysisOption(maturity,function);
