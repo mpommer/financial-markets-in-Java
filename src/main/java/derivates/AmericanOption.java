@@ -57,8 +57,25 @@ public class AmericanOption {
 			exercise[maturity][i] = true;
 		}
 		
-		
-		
+		for(int j = maturity-1;j>=0;j--) {
+			double[] processRealizationsAtTimeJ = binomialModel.getRealizationsAtTime(j);
+			double[] optionPart = new double[processRealizations.length];
+			for(int i = 0; i<processRealizations.length;i++) {
+				optionPart[i] = function.apply(processRealizationsAtTimeJ[0]);			
+			}
+			double[] valuationPart = new double[processRealizations.length-1];
+			for(int i = 0; i<j+1; i++) {
+				valuationPart[i] = binomialModel.riskneutralProbability/(1-binomialModel.interestRate)*
+				valuesOption[j+1][i] + (1- binomialModel.riskneutralProbability) * 	valuesOption[j+1][i+1];	
+			}
+			for(int i = 0; i<j+1; i++) {
+				valuesOption[i] = binomialModel.riskneutralProbability/(1-binomialModel.interestRate)*
+				valuesOption[j+1][i] + (1- binomialModel.riskneutralProbability) * 	valuesOption[j+1][i+1];	
+			}
+			valuesOption[timeIndexBackward, 0:timeIndexBackward + 1] =\
+	                np.maximum(optionPart, valuationPart)  
+
+		}		
 	}
 	
 
