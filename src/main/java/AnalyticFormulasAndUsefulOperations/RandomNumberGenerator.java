@@ -1,7 +1,8 @@
 package AnalyticFormulasAndUsefulOperations;
 
 /**
- * Generator of pseudo random numbers.
+ * Generator of pseudo random numbers. The class offers the opportunity to generate long/double ([0,1]) and standard normal 
+ * distributied numbers. 
  * 
  * @author Marcel Pommer
  *
@@ -21,15 +22,30 @@ public class RandomNumberGenerator {
 	private int countDouble = 1;
 	private int countStandardNormal = 1;
 	
+	/**
+	 * Construction which offers the opportunity to create modulus and seed. 
+	 * Caution! If seed is greater than modulus, normal distribution will fail!
+	 * 
+	 * @param numberOfPseudoRandomNumbers
+	 * @param seed
+	 * @param modulus
+	 */
 	public RandomNumberGenerator(int numberOfPseudoRandomNumbers, long seed, long modulus) {
 		this.numberOfPseudoRandomNumbers = numberOfPseudoRandomNumbers;
 		this.seed = seed;
+		this.modulus = modulus;
 	}
 	
+	
+	/**
+	 * Construction which offers the opportunity to create modulus and seed. 
+	 * 	 * 
+	 * @param numberOfPseudoRandomNumbers
+	 * @param seed
+	 */
 	public RandomNumberGenerator(int numberOfPseudoRandomNumbers, long seed) {
 		this.numberOfPseudoRandomNumbers = numberOfPseudoRandomNumbers;
 		this.seed = seed;
-		this.modulus = modulus;
 	}
 
 
@@ -80,7 +96,7 @@ public class RandomNumberGenerator {
 	
 	
 	/**
-	 * getter method for the sequence of pseudo random natural numbers double.
+	 * getter method for the sequence of pseudo random standard normal distributed number.
 	 *
 	 * @return the sequence of pseudo random numbers
 	 */
@@ -121,7 +137,7 @@ public class RandomNumberGenerator {
 	}
 
 	/**	
-	 * @return the next number of the sequence of pseudo random numbers
+	 * @return the next Long number of the sequence of pseudo random numbers
 	 */
 	public long getNextInteger() {
 		long[] sequence = getRandomNumberSequenceLong();
@@ -137,7 +153,7 @@ public class RandomNumberGenerator {
 	}
 	
 	/**	
-	 * @return the next double number of the sequence of pseudo random numbers
+	 * @return the next standard normal number of the sequence of pseudo random numbers
 	 */
 	public double getNextStandardNormal() {
 		double[] sequence = getRandomNumberSequenceStandardNormal();
