@@ -11,9 +11,9 @@ public class UsefullOperationsVectorsMatrixes {
 	
 	
 	/**
-	 * Returns the minimum of the vector.
+	 * Returns the average of the vector.
 	 * @param vector
-	 * @return Minimum
+	 * @return average
 	 */
 	public static double vectorAverage(double[] vector) {
 		double sum = 0;
@@ -570,5 +570,19 @@ public class UsefullOperationsVectorsMatrixes {
 			arrayInt[i] = array[i] == true ? 1 : 0;			
 		}
 		return arrayInt;
+	}
+	
+	public static double varianceOfVector(double[] vector) {
+		double average = vectorAverage(vector);
+		double sum = 0.0;
+		for(int i = 0; i<vector.length; i++) {
+			sum += Math.pow(vector[i] - average, 2);
+		}		
+		return sum;
+	}
+	
+	public static double stdOfVector(double[] vector) {
+		
+		return Math.sqrt(varianceOfVector(vector));
 	}
 }

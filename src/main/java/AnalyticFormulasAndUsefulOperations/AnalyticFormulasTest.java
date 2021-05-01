@@ -5,6 +5,9 @@ package AnalyticFormulasAndUsefulOperations;
 public class AnalyticFormulasTest {
 
 	public static void main(String[] args) {
+		
+		System.out.println(-5%3);
+		/*
 		char a = ' ';
 		char z = '.';
 	
