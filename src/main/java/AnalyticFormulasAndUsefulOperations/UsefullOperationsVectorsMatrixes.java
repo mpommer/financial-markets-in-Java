@@ -225,7 +225,7 @@ public class UsefullOperationsVectorsMatrixes {
 	/**
 	 * Creates a matrix containing all information needed to create a histogram. The first row contains doubles indicating the border
 	 * of the bins. The second row contains the corresponding frequencies, i.e. hist[1][0] contains the frequency of the first bin. 
-	 * Since their is one border bin more than bins itself, the last entry in the second rows does NOT correspond to any frequency 
+	 * Since their is one border bin more than bins itself, the last entry in the second row does NOT correspond to any frequency 
 	 * and is filled with Double.NAN.
 	 * 
 	 * @param vector

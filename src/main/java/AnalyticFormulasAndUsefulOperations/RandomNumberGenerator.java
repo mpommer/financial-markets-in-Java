@@ -39,7 +39,6 @@ public class RandomNumberGenerator {
 		for (int indexOfInteger = 0; indexOfInteger < numberOfPseudoRandomNumbers; indexOfInteger++) {
 			long congruence;
 			long observedNumber = a * randomNumbersLong[indexOfInteger] + c;
-			System.out.println(" value" + a * randomNumbersLong[indexOfInteger] + c);
 			if(observedNumber>=0) {
 				congruence = observedNumber % modulus;
 			} else {
@@ -58,7 +57,7 @@ public class RandomNumberGenerator {
 			}
 		randomNumbersDouble = new double[numberOfPseudoRandomNumbers + 1];
 		for(int i =0; i<numberOfPseudoRandomNumbers + 1;i++) {
-			randomNumbersDouble[i] = randomNumbersLong[i]/this.modulus;
+			randomNumbersDouble[i] = ((double) randomNumbersLong[i])/((double)this.modulus);
 		}
 	}
 	
