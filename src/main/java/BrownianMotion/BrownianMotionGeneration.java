@@ -1,9 +1,9 @@
 package BrownianMotion;
 
-import AnalyticFormulasAndUsefulOperations.RandomNumberGenerator;
 import BackwardAutomaticDifferentiation.RandomVariable;
 import BackwardAutomaticDifferentiation.RandomVariableFactory;
 import BackwardAutomaticDifferentiation.RandomVariableFactoryImplementation;
+import RandomNumbers.RandomNumberGeneratorLCG;
 
 public class BrownianMotionGeneration {
 	int numberOfBrownianMotions;
@@ -19,7 +19,7 @@ public class BrownianMotionGeneration {
 	
 	private void generateBrownianMotions(){
 		double[] normalRandomNumbers = new double[numberOfBrownianMotions];
-		RandomNumberGenerator ran = new RandomNumberGenerator(numberOfBrownianMotions, 69);
+		RandomNumberGeneratorLCG ran = new RandomNumberGeneratorLCG(numberOfBrownianMotions, 69);
 		for(int i = 0; i<numberOfBrownianMotions; i++) {
 			normalRandomNumbers[i] = Math.sqrt(ran.getNextStandardNormal());
 		}

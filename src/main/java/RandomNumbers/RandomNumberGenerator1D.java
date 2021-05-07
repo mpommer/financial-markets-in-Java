@@ -1,4 +1,4 @@
-package AnalyticFormulasAndUsefulOperations;
+package RandomNumbers;
 
 public interface RandomNumberGenerator1D {
 	

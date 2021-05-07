@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import RandomNumbers.RandomNumberGeneratorLCG;
 import net.finmath.plots.Plots;
 
 public class StandardNormalDistributionVisulization {
@@ -11,7 +12,7 @@ public class StandardNormalDistributionVisulization {
 	public static void main(String[] args) {
 		long seed = 281516L; 
 		int numberOfPseudoRandomNumbers = 1000000;
-		RandomNumberGenerator ran = new RandomNumberGenerator(numberOfPseudoRandomNumbers, seed);
+		RandomNumberGeneratorLCG ran = new RandomNumberGeneratorLCG(numberOfPseudoRandomNumbers, seed);
 		long[] longs = ran.getRandomNumberSequenceLong();
 		double[] doubles = ran.getRandomNumberSequenceDouble();
 		double[] standardNormal = ran.getRandomNumberSequenceStandardNormal();

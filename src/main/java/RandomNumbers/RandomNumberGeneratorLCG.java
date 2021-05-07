@@ -1,4 +1,4 @@
-package AnalyticFormulasAndUsefulOperations;
+package RandomNumbers;
 
 /**
  * Generator of pseudo random numbers. The class offers the opportunity to generate long/double ([0,1]) and standard normal 
@@ -8,7 +8,7 @@ package AnalyticFormulasAndUsefulOperations;
  *
  */
 
-public class RandomNumberGenerator implements  RandomNumberGenerator1D{
+public class RandomNumberGeneratorLCG implements  RandomNumberGenerator1D{
 	
 	private long[] randomNumbersLong;
 	private double[] randomNumbersDouble;
@@ -30,7 +30,7 @@ public class RandomNumberGenerator implements  RandomNumberGenerator1D{
 	 * @param seed
 	 * @param modulus
 	 */
-	public RandomNumberGenerator(int numberOfPseudoRandomNumbers, long seed, long modulus) {
+	public RandomNumberGeneratorLCG(int numberOfPseudoRandomNumbers, long seed, long modulus) {
 		this.numberOfPseudoRandomNumbers = numberOfPseudoRandomNumbers;
 		this.seed = seed;
 		this.modulus = modulus;
@@ -43,7 +43,7 @@ public class RandomNumberGenerator implements  RandomNumberGenerator1D{
 	 * @param numberOfPseudoRandomNumbers
 	 * @param seed
 	 */
-	public RandomNumberGenerator(int numberOfPseudoRandomNumbers, long seed) {
+	public RandomNumberGeneratorLCG(int numberOfPseudoRandomNumbers, long seed) {
 		this.numberOfPseudoRandomNumbers = numberOfPseudoRandomNumbers;
 		this.seed = seed;
 	}
