@@ -3,6 +3,8 @@ package RandomNumbers;
 public class HaltonSequence implements RandomNumberGeneratorND {
 	private final int dim;
 	private final int[] basis;
+	private int numberOfRandomNumbers =0;
+	private int counter = 0;
 	
 	public HaltonSequence(int dim, int[] basis) {
 		if(dim != basis.length) {
@@ -10,6 +12,15 @@ public class HaltonSequence implements RandomNumberGeneratorND {
 		}
 		this.dim = dim;
 		this.basis = basis;		
+	}
+	
+	public HaltonSequence(int dim, int[] basis, int numberOfRandomNumbers) {
+		if(dim != basis.length) {
+			throw new IllegalArgumentException("DImension does not correcpond to basis vector");
+		}
+		this.dim = dim;
+		this.basis = basis;
+		this.numberOfRandomNumbers = numberOfRandomNumbers;
 	}
 
 	public double[] haltonSequencePointFromIndex(int index) {
@@ -23,20 +34,25 @@ public class HaltonSequence implements RandomNumberGeneratorND {
 
 	@Override
 	public double[][] getRandomNumberSequenceDouble() {
-		// TODO Auto-generated method stub
-		return null;
+		double[][] randomNumberSequence = new double[numberOfRandomNumbers][dim];
+		for(int index = 0; index<numberOfRandomNumbers; index++) {
+			double[] haltonSequence = haltonSequencePointFromIndex(index);
+			for(int i = 0;i<dim;i++) {
+				randomNumberSequence[index][i] = haltonSequence[i];
+			}
+		}
+		return randomNumberSequence;
 	}
 
 	@Override
 	public double[] getNextDouble() {
-		// TODO Auto-generated method stub
-		return null;
+		counter++;
+		return haltonSequencePointFromIndex(counter);
 	}
 
 	@Override
 	public int getDimension() {
-		// TODO Auto-generated method stub
-		return 0;
+		return dim;
 	}
 
 }
