@@ -8,7 +8,7 @@ package AnalyticFormulasAndUsefulOperations;
  *
  */
 
-public class RandomNumberGenerator {
+public class RandomNumberGenerator implements  RandomNumberGenerator1D{
 	
 	private long[] randomNumbersLong;
 	private double[] randomNumbersDouble;
