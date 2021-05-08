@@ -1,6 +1,6 @@
 package RandomNumbers;
 /**
- * Class to generate a halton sequence in order to get a low discrepancy.
+ * Class to generate a vanDerCorputSequence in order to get a low discrepancy.
  * 
  * @author Marcel Pommer
  *
@@ -21,14 +21,14 @@ public class VanDerCorputSequence implements RandomNumberGenerator1D {
 	
 	public double getNumberIndexBase(int index, int base) {
 		index++;
-		double haltonNumber = 0.0;
+		double vanDerCorputNumber = 0.0;
 		double factor = 1.0/(double) base;
 		while(index>0) {
-			haltonNumber += (index%base) * factor;
+			vanDerCorputNumber += (index%base) * factor;
 			factor /= base;
 			index /= base;
 		}
-		return haltonNumber;
+		return vanDerCorputNumber;
 	}
 
 	@Override
