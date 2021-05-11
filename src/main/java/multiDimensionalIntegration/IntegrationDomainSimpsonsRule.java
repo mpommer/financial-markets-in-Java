@@ -20,7 +20,7 @@ public class IntegrationDomainSimpsonsRule implements IntegrationDomain {
 	
 	public double[][] evaluationPoints(){
 		double[][] evaluationPoints = new double[dimension][numberOfPoints];
-		System.out.println(dimension);
+		
 		for(int dim = 0; dim<dimension;dim++) {
 			for(int j = 0; j<numberOfPoints;j++) {
 				evaluationPoints[dim][j] = boundaries[dim][0] + boundaries[dim][1]*(double)j/(double)numberOfPoints;
