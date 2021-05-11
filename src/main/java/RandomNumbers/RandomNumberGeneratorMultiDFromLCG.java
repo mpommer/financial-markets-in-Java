@@ -19,6 +19,11 @@ public class RandomNumberGeneratorMultiDFromLCG implements RandomNumberGenerator
 		this.ranGenerator = ranGenerator;
 		this.numberOfRandomNumbers = numberOfRandomNumbers;
 	}
+	
+	public RandomNumberGeneratorMultiDFromLCG(int dimension,RandomNumberGenerator1D ranGenerator) {
+		this.dimension = dimension;
+		this.ranGenerator = ranGenerator;
+		}
 
 	@Override
 	public double[][] getRandomNumberSequenceDouble() {

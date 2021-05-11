@@ -2,10 +2,12 @@ package multiDimensionalIntegration;
 
 import java.util.function.DoubleBinaryOperator;
 
+import RandomNumbers.MersenneTwisterFromApache;
 import RandomNumbers.RandomNumberGenerator1D;
 import RandomNumbers.RandomNumberGeneratorLCG;
 import RandomNumbers.RandomNumberGeneratorMultiDFromLCG;
 import RandomNumbers.RandomNumberGeneratorND;
+import RandomNumbers.VanDerCorputSequence;
 
 public class IntegrationExample2Dimensions {
 	public static void main(String[] args) {
@@ -14,6 +16,7 @@ public class IntegrationExample2Dimensions {
 		double upperBoundX = Math.PI;
 		double lowerBoundY = 0.0;
 		double upperBoundY = Math.PI;
+		
 
 		double value = getIntegral(function, lowerBoundX,upperBoundX, lowerBoundY, upperBoundY);
 		System.out.println(value);
@@ -21,12 +24,10 @@ public class IntegrationExample2Dimensions {
 
 	public static double getIntegral(DoubleBinaryOperator function, double lowerBoundX,
 			double upperBoundX, double lowerBoundY, double upperBoundY) {
-		long seed = 707;
-		int numberOfRandomNumbers = 50000000;
-		RandomNumberGenerator1D ranGenOneDim = new RandomNumberGeneratorLCG(numberOfRandomNumbers, seed);
+		RandomNumberGenerator1D ranGenOneDim = new MersenneTwisterFromApache(707);
 		int dim = 2;
-		long numberOfMonteCarloSimulations = 1000;
-		RandomNumberGeneratorND ranGen = new RandomNumberGeneratorMultiDFromLCG(10000,ranGenOneDim, dim);
+		long numberOfMonteCarloSimulations = 10000000;
+		RandomNumberGeneratorND ranGen = new RandomNumberGeneratorMultiDFromLCG(dim, ranGenOneDim);
 		
 		IntegratorImplementationPommer integralPommer = new IntegratorImplementationPommer(ranGen, numberOfMonteCarloSimulations);
 		
