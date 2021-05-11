@@ -1,4 +1,5 @@
 package RandomNumbers;
+
 /**
  * Class to generate a vanDerCorputSequence in order to get a low discrepancy.
  * 
@@ -7,15 +8,11 @@ package RandomNumbers;
  */
 
 public class VanDerCorputSequence implements RandomNumberGenerator1D {
-	private final int numberOfRandomNumbers;
+
 	private int index = 0;
 	
-	public VanDerCorputSequence(int numberOfRandomNumbers) {
-		this.numberOfRandomNumbers = numberOfRandomNumbers;
-	}
-	
+
 	public VanDerCorputSequence() {
-		this.numberOfRandomNumbers = 0;
 		
 	}
 	
@@ -32,9 +29,9 @@ public class VanDerCorputSequence implements RandomNumberGenerator1D {
 	}
 
 	@Override
-	public double[] getRandomNumberSequenceDouble() {
-		double[] randomNumbers = new double[this.numberOfRandomNumbers];
-		for(int index = 0; index<this.numberOfRandomNumbers;index++) {
+	public double[] getRandomNumberSequenceDouble(int numberOfRandomNumbers) {
+		double[] randomNumbers = new double[numberOfRandomNumbers];
+		for(int index = 0; index<numberOfRandomNumbers;index++) {
 			randomNumbers[index] = getNumberIndexBase(index, 2);
 		}
 		
@@ -45,6 +42,12 @@ public class VanDerCorputSequence implements RandomNumberGenerator1D {
 	public double getNextDouble() {
 		index ++;
 		return getNumberIndexBase(this.index, 2);
+	}
+
+	@Override
+	public double getNextDoubleBetweenZeroOne() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

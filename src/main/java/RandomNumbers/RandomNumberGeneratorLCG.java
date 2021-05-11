@@ -114,7 +114,7 @@ public class RandomNumberGeneratorLCG implements  RandomNumberGenerator1D{
 	 *
 	 * @return the sequence of pseudo random numbers
 	 */
-	public double[] getRandomNumberSequenceDouble() {
+	public double[] getRandomNumberSequenceDouble(int numberOfRandomNumbers) {
 		if (randomNumbersDouble == null) {
 			generateDouble();
 			return randomNumbersDouble;
@@ -148,7 +148,7 @@ public class RandomNumberGeneratorLCG implements  RandomNumberGenerator1D{
 	 * @return the next double number of the sequence of pseudo random numbers
 	 */
 	public double getNextDouble() {
-		double[] sequence = getRandomNumberSequenceDouble();
+		double[] sequence = getRandomNumberSequenceDouble(this.numberOfPseudoRandomNumbers);
 		return sequence[countDouble++];
 	}
 	
@@ -177,6 +177,12 @@ public class RandomNumberGeneratorLCG implements  RandomNumberGenerator1D{
 	 */
 	public int getNumberOfPseudoRandomNumbers() {
 		return numberOfPseudoRandomNumbers;
+	}
+
+
+	@Override
+	public double getNextDoubleBetweenZeroOne() {
+		return getNextDouble()/this.modulus;
 	}
 
 }

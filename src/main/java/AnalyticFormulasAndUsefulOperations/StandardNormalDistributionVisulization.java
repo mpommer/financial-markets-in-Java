@@ -14,7 +14,7 @@ public class StandardNormalDistributionVisulization {
 		int numberOfPseudoRandomNumbers = 1000000;
 		RandomNumberGeneratorLCG ran = new RandomNumberGeneratorLCG(numberOfPseudoRandomNumbers, seed);
 		long[] longs = ran.getRandomNumberSequenceLong();
-		double[] doubles = ran.getRandomNumberSequenceDouble();
+		double[] doubles = ran.getRandomNumberSequenceDouble(numberOfPseudoRandomNumbers);
 		double[] standardNormal = ran.getRandomNumberSequenceStandardNormal();
 		
 		double[][] hist = UsefullOperationsVectorsMatrixes.histogramm(standardNormal, -4, 4, 150);
