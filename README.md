@@ -28,11 +28,11 @@ Monte Carlo calculation of the price, the second (smart) calculates all probabil
 4) Brownian Motion
 - generates a sequence of standard normal random numbers as type of Randomvarible in order to perfom operations with them. This class can be used for term structure models (coming)
 
-5) Random Numbers
+5) Random Numbers:
 Project to create random numbers
 - One dimensional: creates random numbers using the LCG or a van der corput sequence (low discrepancy sequence).
 - Multi dimensional: creates multidimensional random numbers using LCG/mersenne twister or a halton sequence (low discrepancy sequence).
 This class should be used for integration.
 
-6) Integration
+6) Integration:
 Project to perfom integration: support one and multidimensional integration.
