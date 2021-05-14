@@ -4,6 +4,7 @@ import BackwardAutomaticDifferentiation.RandomVariable;
 import BackwardAutomaticDifferentiation.RandomVariableFactory;
 import BackwardAutomaticDifferentiation.RandomVariableFactoryImplementation;
 import RandomNumbers.RandomNumberGeneratorLCG;
+import TimeDiscretization.TimeDiscretizationInterface;
 
 public class BrownianMotionGeneration {
 	int numberOfBrownianMotions;
@@ -43,6 +44,5 @@ public class BrownianMotionGeneration {
 		}
 		return brownianMotionRandomVariable;
 	}
-	
 
 }
