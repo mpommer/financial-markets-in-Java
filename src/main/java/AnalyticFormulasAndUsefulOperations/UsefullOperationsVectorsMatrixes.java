@@ -346,8 +346,10 @@ public class UsefullOperationsVectorsMatrixes {
 	}
 	
 	/**
-	 * Matrix (dim x dim) initializations with 1 on the diagonals and otherweise 0.
+	 * Matrix (dim x dim) initializations with given vector on the diagonals and otherweise 0.
+	 * Useful for example to implement a matrix with eigenvalues on the diagonals
 	 * @param dim
+	 * @param value, double array for the values on the diagonal
 	 * @return matrix
 	 */
 	public static double[][] matrixInitializeDiagonal(int dim, double[] value) {
@@ -591,6 +593,12 @@ public class UsefullOperationsVectorsMatrixes {
 		return arrayInt;
 	}
 	
+	/**
+	 * Returns the variance of the vector.
+	 * @param vector
+	 * @return
+	 */
+	
 	public static double varianceOfVector(double[] vector) {
 		double average = vectorAverage(vector);
 		double sum = 0.0;
@@ -600,8 +608,29 @@ public class UsefullOperationsVectorsMatrixes {
 		return sum;
 	}
 	
+	/**
+	 * returns the standard deviation of the vector as sqrt(variance).
+	 * @param vector
+	 * @return
+	 */
 	public static double stdOfVector(double[] vector) {
 		
 		return Math.sqrt(varianceOfVector(vector));
+	}
+	
+	
+	/**
+	 * Returns sqrt(matrix) componentwise.
+	 * @param matrix
+	 * @return
+	 */
+	public static double[][] matrixSqrt(double[][] matrix){
+		
+		for(int row = 0; row<matrix.length;row++) {
+			for(int column = 0; column<matrix[0].length;column++) {
+				matrix[row][column] = Math.sqrt(matrix[row][column]);
+			}
+		}
+		return matrix;
 	}
 }
