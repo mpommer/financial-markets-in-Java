@@ -8,7 +8,7 @@ import BackwardAutomaticDifferentiation.RandomVariableFactoryImplementation;
 import RandomNumbers.MersenneTwisterFromApache;
 import TimeDiscretization.TimeDiscretizationInterface;
 
-public class BrownianMotionFromMersenn implements BrownianMotion {
+public class BrownianMotionFromMersenn implements BrownianMotion1D {
 	RandomVariable[] brownianMotion;
 	TimeDiscretizationInterface timeDiscretization;
 	int seed;
@@ -46,12 +46,12 @@ public class BrownianMotionFromMersenn implements BrownianMotion {
 	}
 
 	@Override
-	public BrownianMotion getCloneWithModifiedSeed(int seed) {		
+	public BrownianMotion1D getCloneWithModifiedSeed(int seed) {		
 		return new BrownianMotionFromMersenn(this.timeDiscretization, seed, this.numberOfPathes);
 	}
 
 	@Override
-	public BrownianMotion getCloneWithModifiedTimeDiscretization(TimeDiscretizationInterface newTimeDiscretization) {		
+	public BrownianMotion1D getCloneWithModifiedTimeDiscretization(TimeDiscretizationInterface newTimeDiscretization) {		
 		return new BrownianMotionFromMersenn(newTimeDiscretization, this.seed, this.numberOfPathes);
 	}
 	

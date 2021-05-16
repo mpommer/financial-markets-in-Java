@@ -2,6 +2,8 @@ package TimeDiscretization;
 
 import java.util.ArrayList;
 
+import AnalyticFormulasAndUsefulOperations.UsefullOperationsVectorsMatrixes;
+
 public class TimeDiscretizationImplementation implements TimeDiscretizationInterface {
 	double[] timeDiscretization;
 	int beginning;
@@ -76,8 +78,20 @@ public class TimeDiscretizationImplementation implements TimeDiscretizationInter
 				return i;
 			}
 		}
-		throw new IllegalArgumentException("No time Index found for time " + time + ". Use get nearest instead.");	
+		double[] distance = new double[numberOfPeriods+1];
 		
+		for(int i = 0; i<numberOfPeriods+1; i++) {
+			distance[i] = Math.abs(timeDiscretization[i]-time);
+		}
+		
+		double minValue = UsefullOperationsVectorsMatrixes.vectorMin(distance);
+		
+		for(int i = 0; i< timeDiscretization.length; i++) {
+			if(timeDiscretization[i] == time) {
+				return (-i-1);
+			}
+		}
+		throw new IllegalArgumentException("Time is out of range");
 	}
 
 	@Override

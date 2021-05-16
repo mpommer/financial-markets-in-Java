@@ -1,9 +1,10 @@
 package BrownianMotion;
 
 import BackwardAutomaticDifferentiation.RandomVariable;
+
 import TimeDiscretization.TimeDiscretizationInterface;
 
-public interface BrownianMotion {
+public interface BrownianMotion1D {
 	
 
 	RandomVariable getBrownianIncrement(int timeIndex);
@@ -28,10 +29,10 @@ public interface BrownianMotion {
 
 
 	
-	BrownianMotion getCloneWithModifiedSeed(int seed);
+	BrownianMotion1D getCloneWithModifiedSeed(int seed);
 
 
 	
-	BrownianMotion getCloneWithModifiedTimeDiscretization(TimeDiscretizationInterface newTimeDiscretization);
+	BrownianMotion1D getCloneWithModifiedTimeDiscretization(TimeDiscretizationInterface newTimeDiscretization);
 
 }

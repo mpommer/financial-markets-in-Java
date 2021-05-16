@@ -346,6 +346,25 @@ public class UsefullOperationsVectorsMatrixes {
 	}
 	
 	/**
+	 * Matrix (dim x dim) initializations with 1 on the diagonals and otherweise 0.
+	 * @param dim
+	 * @return matrix
+	 */
+	public static double[][] matrixInitializeDiagonal(int dim, double[] value) {
+		if(dim!=value.length) {
+			throw new IllegalArgumentException("Array need to be of length: " + dim);
+		}
+		double[][] matrix = new double[dim][dim];
+		for(int i =0;i<matrix.length;i++) {
+			for(int j= 0;j<matrix.length;j++) {
+				matrix[i][j] = i==j ? value[i]:0;
+			}
+		}
+		
+		return matrix;
+	}
+	
+	/**
 	 * Returns the inverse of the matrix.
 	 * @param matrix
 	 * @return the inverse matrix

@@ -125,5 +125,7 @@ public interface RandomVariable {
 	 * @return New object representing the result.
 	 */
 	RandomVariable choose(RandomVariable valueIfNonNegative, RandomVariable valueIfNegative);
+	
+	double[] returnDoubleArray();
 
 }

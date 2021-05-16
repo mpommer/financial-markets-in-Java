@@ -424,5 +424,10 @@ public class RandomVariableDifferentiablelmplementation implements RandomVariabl
 	public double[] getRealizations() {
 		return value;
 	}
+	
+	@Override
+	public double[] returnDoubleArray() {
+		return value;
+	}
 
 }

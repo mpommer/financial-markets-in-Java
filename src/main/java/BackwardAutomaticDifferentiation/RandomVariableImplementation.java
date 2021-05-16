@@ -359,5 +359,11 @@ public class RandomVariableImplementation implements GetRealizations, RandomVari
 	}
 
 
+	@Override
+	public double[] returnDoubleArray() {
+		return randomvalue;
+	}
+
+
 
 }
