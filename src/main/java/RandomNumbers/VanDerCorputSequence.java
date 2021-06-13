@@ -37,6 +37,15 @@ public class VanDerCorputSequence implements RandomNumberGenerator1D {
 		
 		return randomNumbers;
 	}
+	
+	public double[] getRandomNumberSequenceDouble(int numberOfRandomNumbers, int base) {
+		double[] randomNumbers = new double[numberOfRandomNumbers];
+		for(int index = 0; index<numberOfRandomNumbers;index++) {
+			randomNumbers[index] = getNumberIndexBase(index, base);
+		}
+		
+		return randomNumbers;
+	}
 
 	@Override
 	public double getNextDouble() {
@@ -46,8 +55,7 @@ public class VanDerCorputSequence implements RandomNumberGenerator1D {
 
 	@Override
 	public double getNextDoubleBetweenZeroOne() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getNextDouble();
 	}
 
 }

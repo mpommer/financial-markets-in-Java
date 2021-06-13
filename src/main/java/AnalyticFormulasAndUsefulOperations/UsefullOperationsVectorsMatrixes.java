@@ -40,6 +40,38 @@ public class UsefullOperationsVectorsMatrixes {
 	}
 	
 	/**
+	 * Returns the index of the minimum
+	 * @param vector
+	 * @return
+	 */
+	public static int vectorMinIndex(double[] vector) {
+		int index = -1;
+		double min = Double.MAX_VALUE;
+		for(int i = 0;i<vector.length;i++) {
+			index = min>vector[i] ? i:index;
+			min = min>vector[i] ? vector[i]:min;
+		}
+		
+		return index;
+	}
+	
+	/**
+	 * Returns the index of the maximum.
+	 * @param vector
+	 * @return
+	 */
+	public static int vectorMaxIndex(double[] vector) {
+		int index = -1;
+		double max = 0.0;
+		for(int i = 0;i<vector.length;i++) {
+			index = max<vector[i] ? i:index;
+			max = max<vector[i] ? vector[i]:max;
+		}
+		
+		return index;
+	}
+	
+	/**
 	 * Returns the maximum of the vector.
 	 * @param vector
 	 * @return Maximum
@@ -132,6 +164,40 @@ public class UsefullOperationsVectorsMatrixes {
 	}
 	
 	/**
+	 * Sorts a vector from lowest to highest.
+	 * @param vector
+	 * @return
+	 */
+	public static double[] vectorSort(double[] vector) {
+		double[] vectorSorted = new double[vector.length];
+		for(int i = 0;i<vectorSorted.length;i++) {		
+			vectorSorted[i] = 	vectorMin(vector);
+			vector = vectorDrop(vector, vectorMinIndex(vector));
+		}
+		
+		return vectorSorted;
+	}
+	
+	/**
+	 * Drops the i-th index. To remove last number use index vector.length-1
+	 * @param vector
+	 * @param index
+	 * @return
+	 */
+	public static double[] vectorDrop(double[] vector, int index) {
+		double[] vectorDropped = new double[vector.length-1];
+		int indexVector = 0;
+		for(int i = 0;i<vector.length;i++) {
+			if(i != index) {
+				vectorDropped[indexVector] = vector[i];
+				indexVector++;
+			}
+		}
+		
+		return vectorDropped;
+	}
+	
+	/**
 	 * Perfors a vector multiplication, i.e. v1^T * v2
 	 * @param vector1
 	 * @param vector2
@@ -209,10 +275,10 @@ public class UsefullOperationsVectorsMatrixes {
 		
 		double[][] matrix = new double[matrix1.length][matrix2[0].length];
 		for(int i = 0;i<matrix1.length;i++) {
-			for(int j = 0;j<matrix2[0].length;i++) {
+			for(int j = 0;j<matrix2[0].length;j++) {
 				double sum = 0.0;
 				for(int n = 0;n<matrix1[0].length;n++) {
-					sum += matrix1[i][n] * matrix1[n][j];
+					sum += matrix1[i][n] * matrix2[n][j];
 				}
 				matrix[i][j] = sum;
 			}
