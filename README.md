@@ -11,7 +11,7 @@ Furthermore I added a test class in order to demonstrate how to use the methods.
 - Standard normal distribution: Example and visualization of how to use the random number generator for standard normal distributed variables.
 
 2) Automatic backward differentiation
-The class performs the Automatic backward differentiation algorithm, i.e. differentiate equations. The class RandomVariable enables the use of vectors. 
+- The class performs the Automatic backward differentiation algorithm, i.e. differentiate equations. The class RandomVariable enables the use of vectors. 
 Furthermore I added a test class in order to demonstrate how to use the methods in the context of calculating derivatives and also by calcualting 
 option deltas using the derivaive.
 
@@ -35,4 +35,4 @@ Project to create random numbers
 This class should be used for integration.
 
 6) Integration:
-Project to perfom integration: support one and multidimensional integration.
+- Project to perfom integration: support one and multidimensional integration.
